@@ -9,6 +9,11 @@ const channels = require("./channels.json");
  ****************************************************************/
 function totalVideosDuration(channel) {
   // Your code here
+  let sum = 0;
+  return channel.videos
+    .map((video) => video.duration)
+    .reduce((vid1, vid2) => vid1 + vid2, 0);
+  // had to use .map/.reduce to fix the recude as not working
 }
 
 /**************************************************************
@@ -21,6 +26,9 @@ function totalVideosDuration(channel) {
  ****************************************************************/
 function channelWithMostContent(channels) {
   // Your code here
+  return channels.sort(
+    (chan1, chan2) => totalVideosDuration(chan2) - totalVideosDuration(chan1)
+  )[0];
 }
 
 /**************************************************************
@@ -32,6 +40,10 @@ function channelWithMostContent(channels) {
  ****************************************************************/
 function longestChannelName(channels) {
   // Your code here
+
+  return channels.sort(
+    (chan1, chan2) => chan2.name.length - chan1.name.length
+  )[0];
 }
 
 // Check your answers by running this file and comparing what it logs
@@ -41,7 +53,7 @@ console.log(totalVideosDuration(channels[0]));
 
 // 636
 
-console.log(channelWithMostContent(channels));
+// console.log(channelWithMostContent(channels));
 // Should log:
 
 // {
@@ -56,7 +68,7 @@ console.log(channelWithMostContent(channels));
 //   ],
 // }
 
-console.log(longestChannelName(channels));
+// console.log(longestChannelName(channels));
 // Should log:
 
 // {
